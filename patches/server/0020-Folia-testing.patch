@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Cubxity <contact@cubxity.dev>
+Date: Sat, 17 Jun 2023 19:00:37 +0200
+Subject: [PATCH] Folia testing
+
+
+diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
+index d4620ddfcd06a037f647ab0a8938797405e001b2..493bc2f4c8e8ce8a5838192dcdafcbac55543641 100644
+--- a/src/main/java/net/minecraft/server/players/PlayerList.java
++++ b/src/main/java/net/minecraft/server/players/PlayerList.java
+@@ -302,6 +302,21 @@ public abstract class PlayerList {
+         } else {
+             worldserver1 = worldserver;
+         }
++        // Folia start - testing
++        Location location = worldserver1.getWorld().getSpawnLocation();
++        org.spigotmc.event.player.PlayerSpawnLocationEvent ev = new com.destroystokyo.paper.event.player.PlayerInitialSpawnEvent(player.getBukkitEntity(), location);
++        this.cserver.getPluginManager().callEvent(ev);
++        if (ev.getSpawnLocation() != location) {
++            data.setValue(nbttagcompound);
++            lastKnownName.setValue(s);
++            worldserver1.loadChunksForMoveAsync(
++                player.getBoundingBox(),
++                ca.spottedleaf.concurrentutil.executor.standard.PrioritisedExecutor.Priority.HIGHER,
++                (c) -> toComplete.complete(ev.getSpawnLocation())
++            );
++            return;
++        }
++        // Folia end - testing
+ 
+         // Paper start
+         if (nbttagcompound == null) {
