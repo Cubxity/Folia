@@ -5,10 +5,10 @@ Subject: [PATCH] Folia testing
 
 
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index d4620ddfcd06a037f647ab0a8938797405e001b2..493bc2f4c8e8ce8a5838192dcdafcbac55543641 100644
+index d4620ddfcd06a037f647ab0a8938797405e001b2..e56fc7a9e47254707f20030f079815c2fa8c7595 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
-@@ -302,6 +302,21 @@ public abstract class PlayerList {
+@@ -302,6 +302,22 @@ public abstract class PlayerList {
          } else {
              worldserver1 = worldserver;
          }
@@ -19,10 +19,11 @@ index d4620ddfcd06a037f647ab0a8938797405e001b2..493bc2f4c8e8ce8a5838192dcdafcbac
 +        if (ev.getSpawnLocation() != location) {
 +            data.setValue(nbttagcompound);
 +            lastKnownName.setValue(s);
++            Location spawnLocation = ev.getSpawnLocation();
 +            worldserver1.loadChunksForMoveAsync(
-+                player.getBoundingBox(),
++                player.getBoundingBoxAt(spawnLocation.x(), spawnLocation.y(), spawnLocation.z()),
 +                ca.spottedleaf.concurrentutil.executor.standard.PrioritisedExecutor.Priority.HIGHER,
-+                (c) -> toComplete.complete(ev.getSpawnLocation())
++                (c) -> toComplete.complete(spawnLocation)
 +            );
 +            return;
 +        }
