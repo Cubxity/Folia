@@ -5,7 +5,7 @@ Subject: [PATCH] Folia testing
 
 
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index d4620ddfcd06a037f647ab0a8938797405e001b2..e56fc7a9e47254707f20030f079815c2fa8c7595 100644
+index d4620ddfcd06a037f647ab0a8938797405e001b2..766b895e2789286a369d616cf9af99361f8618e2 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
 @@ -302,6 +302,22 @@ public abstract class PlayerList {
@@ -31,3 +31,12 @@ index d4620ddfcd06a037f647ab0a8938797405e001b2..e56fc7a9e47254707f20030f079815c2
  
          // Paper start
          if (nbttagcompound == null) {
+@@ -494,7 +510,7 @@ public abstract class PlayerList {
+     }
+     private void mountSavedVehicle(ServerPlayer player, ServerLevel worldserver1, CompoundTag nbttagcompound) {
+         // Paper end
+-        if (nbttagcompound != null && nbttagcompound.contains("RootVehicle", 10)) {
++        if (false && nbttagcompound != null && nbttagcompound.contains("RootVehicle", 10)) {
+             CompoundTag nbttagcompound1 = nbttagcompound.getCompound("RootVehicle");
+             // CraftBukkit start
+             ServerLevel finalWorldServer = worldserver1;
